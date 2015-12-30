@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<div class="row">
+    <div class="large-12 columns text-center" style="padding-top:150px;">
+        <img src="~/Content/img/logo2.png" alt="logo" width="150" height="150">
+        <h1 class="logo">RightExam</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="large-8 large-centered columns">
+        <p class="welcome">Welcome back!</p>
+        <form>
+            <div class="row">
+                <div class="small-12 columns">
+                    <input type="text" placeholder="Email">
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <input type="password" placeholder="Password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <a href="@Url.Action("Dashboard", "Home")" class="right secondary button">Sign In!</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

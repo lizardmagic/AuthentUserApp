@@ -1,0 +1,24 @@
+﻿@model RCInvigilator.Models.Student
+@{
+    ViewBag.Title = "Details";
+}
+<div class="row">
+    <div class="large-10 large-centered columns">
+        <h2>@Model.FirstName @Model.LastName Details</h2>
+        <p>
+            @Html.ActionLink("Back to exam", null, null, null, new { href = Request.UrlReferrer })
+        </p>
+        <h4>
+            <small>Student Number</small><br>
+            @Model.StudentNumber
+        </h4>
+        <h4>
+            <small>Picture on File</small>
+        </h4>
+        <img class="small-centered" src="@Model.PicId" />
+        <h4>
+            <small>@Html.DisplayNameFor(model => model.DateOfBirth)</small><br>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </h4>
+    </div>
+</div>

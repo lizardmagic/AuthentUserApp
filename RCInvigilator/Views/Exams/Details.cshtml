@@ -1,0 +1,60 @@
+﻿@model RCInvigilator.Models.Exam
+@{
+    ViewBag.Title = "Details";
+}
+<div class="row">
+    <div class="large-10 large-centered columns">
+        <h2>@Model.CourseTitle Details</h2>
+        <div>
+            <h4>@Model.CourseCode</h4>
+            <hr />
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ExamId }) |
+                @Html.ActionLink("Import Student List", "ImportStudents", new { id = Model.ExamId }) |
+                <a href="@Url.Action("Details", "Sessions", new { id = Model.SessionId})">Back to Session</a>
+            </p>
+            <dl class="dl-horizontal">
+                <dt>
+                    Exam's @Html.DisplayNameFor(model => model.StartTime)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StartTime)
+                </dd>
+                <dt>
+                    Exam's @Html.DisplayNameFor(model => model.EndTime)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndTime)
+                </dd>
+            </dl>
+            @if ((ViewData["Students"] as List<RCInvigilator.Models.Student>).Count() < 1)
+            {
+                <h3 class="text-center"><a href="@Url.Action("ImportStudents", "Exams", new { id = Model.ExamId })">There are no students yet! Click to add some!</a></h3>
+            }
+            else
+            {
+                <h3 class="text-center">Students in this Exam</h3>
+                foreach (var student in ViewData["Students"] as List<RCInvigilator.Models.Student>)
+                {
+                    <div class="row collapse session-row">
+                        <a href="@Url.Action("Details", "Students", new { id = student.StudentId })">
+                            <div class="large-6 columns">
+                                <h4>
+                                    <small>Student Number</small><br>
+                                    @student.StudentNumber
+                                </h4>
+                            </div>
+                            <div class="large-6 columns">
+                                <h4>
+                                    <small>Student Name</small><br>
+                                    @student.FirstName @student.LastName
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                    <hr>
+                }
+            }
+        </div>
+    </div>
+</div>

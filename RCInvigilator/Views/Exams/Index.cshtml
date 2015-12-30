@@ -1,0 +1,55 @@
+﻿@model IEnumerable<RCInvigilator.Models.Exam>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="large-10 large-centered text-center columns">
+        <h2>Exams</h2>
+        <p>
+            @Html.ActionLink("Add Another", "CreateWithSession", new {sessionId = ViewData["sessionId"]}, new { @class = "button" })
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ExamId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ExamId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ExamId }) |
+                        @Html.ActionLink("Import Student List", "ImportStudents", new { id = item.ExamId })
+                    </td>
+                </tr>
+            }
+        </table>
+        <p>
+            @Html.ActionLink("Finish Adding Exams", "FinishAddingToSession", new object { }, new { @class = "button" })
+        </p>
+    </div>
+</div>

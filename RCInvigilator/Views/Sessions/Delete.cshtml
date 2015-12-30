@@ -1,0 +1,49 @@
+﻿@model RCInvigilator.Models.Session
+@{
+    ViewBag.Title = "Delete";
+}
+<div class="row session-row">
+    <div class="large-10 large-centered columns">
+        <h2>Delete</h2>
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <h4>Session</h4>
+            <hr />
+            <h4>
+                <small>@Html.DisplayNameFor(model => model.Campus)</small><br>
+                @Html.DisplayFor(model => model.Campus)
+            </h4>
+            <h4>
+                <small>@Html.DisplayNameFor(model => model.Building)</small><br>
+                @Html.DisplayFor(model => model.Building)
+            </h4>
+            <h4>
+                <small>@Html.DisplayNameFor(model => model.Room)</small><br>
+                @Html.DisplayFor(model => model.Room)
+            </h4>
+            <h4>
+                <small>@Html.DisplayNameFor(model => model.SessionDate)</small><br>
+                @Html.DisplayFor(model => model.SessionDate)
+            </h4>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+                    <div class="large-3 columns">
+                        <button type="submit" class="expand alert button">
+                            <i class="fa fa-2x fa-trash-o"></i><br />
+                            Delete
+                        </button>
+                    </div>
+                    <div class="large-3 columns">
+                        <a href="@Url.Action("Index")" class="expand info button">
+                            <i class="fa fa-2x fa-chevron-left"></i><br />
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

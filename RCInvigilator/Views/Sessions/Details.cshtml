@@ -1,0 +1,80 @@
+﻿@model RCInvigilator.Models.Session
+@{
+    ViewBag.Title = "Session Details";
+}
+<div class="row">
+    <div class="large-10 large-centered columns">
+        <h2>@Model.Campus Session Details</h2>
+        <div>
+            <h4>@Html.DisplayFor(model => model.SessionDate)</h4>
+            <hr />
+            <div class="row collapse session-row">
+                <div class="large-12 columns">
+                    <h4>
+                        <small>Session's @Html.DisplayNameFor(model => model.Building)</small><br />
+                        @Html.DisplayFor(model => model.Building)
+                    </h4>
+                    <h4>
+                        <small>@Html.DisplayNameFor(model => model.Room)</small><br />
+                        @Html.DisplayFor(model => model.Room)
+                    </h4>
+                    <hr />
+                </div>
+            </div>
+            @if ((ViewData["Exams"] as List<RCInvigilator.Models.Exam>).Count < 1)
+            {
+                <h5><a href="@Url.Action("CreateWithSession", "Exams", new { sessionId = Model.SessionId })">There are no exams in this session yet. Click to create one.</a></h5>
+            }
+            else
+            {
+                <h3>Exams in this Session</h3>
+                foreach (var exam in ViewData["Exams"] as List<RCInvigilator.Models.Exam>)
+                {
+                    <div class="row collapse session-row">
+                        <a href="@Url.Action("Details", "Exams", new { id = exam.ExamId })">
+                            <div class="large-6 columns">
+                                <h4>
+                                    <small>Course Title</small><br>
+                                    @exam.CourseTitle
+                                </h4>
+                            </div>
+                            <div class="large-6 columns">
+                                <h4>
+                                    <small>Course Code</small><br>
+                                    @exam.CourseCode
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                    <hr>
+                }
+            }
+            <ul class="large-block-grid-4">
+                <li>
+                    <a href="@Url.Action("AddExam", new { id = Model.SessionId })" class="expand button">
+                        <i class="fa fa-2x fa-plus-circle"></i><br />
+                        Add Exam
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Edit", new { id = Model.SessionId })" class="expand button">
+                    <i class="fa fa-2x fa-pencil-square-o"></i><br />
+                    Edit</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Delete", new { id = Model.SessionId })" class="expand alert button">
+                    <i class="fa fa-2x fa-trash-o"></i><br />
+                    Delete</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index")" class="expand info button">
+                        <i class="fa fa-2x fa-chevron-left"></i><br />
+                        Back to List
+                    </a>
+                </li>
+            </p>
+            
+</div>
+
+    </div>
+</div>

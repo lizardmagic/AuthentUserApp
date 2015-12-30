@@ -1,0 +1,56 @@
+﻿@model IEnumerable<RCInvigilator.Models.Session>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="large-12 large-centered text-center columns">
+        <h2>Sessions</h2>
+        <p>
+            @Html.ActionLink("Create New", "Create", new object { }, new { @class = "button" })
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Campus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Building)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Room)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SessionDate)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Campus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Building)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Room)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SessionDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.SessionId }) |
+                        @Html.ActionLink("Add Exam", "AddExam", new { id = item.SessionId }) |
+                        @Html.ActionLink("Add Invigilator", "AddInvigilator", new { id = item.SessionId }) |
+                        @Html.ActionLink("View Exams", "ViewExams", new { id = item.SessionId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

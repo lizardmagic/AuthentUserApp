@@ -1,0 +1,105 @@
+﻿@model IEnumerable<RCInvigilator.Models.Session>
+@{
+    ViewBag.Title = "Dashboard";
+    string[] chartLabelsArray = ViewBag.chartLabels;
+    int[] inExamsArray = ViewBag.inExams;
+    int[] authenticatedArray = ViewBag.authenticated;
+    string labels = "";
+    string inExams = "";
+    string authenticated = "";
+
+    for (int i = 0; i < chartLabelsArray.Length; ++i)
+    {
+        if (i == 0)
+        {
+            labels += chartLabelsArray[i].ToString();
+            inExams += inExamsArray[i].ToString();
+            authenticated += authenticatedArray[i].ToString();
+        }
+        else
+        {
+            labels += "," + chartLabelsArray[i].ToString();
+            inExams += "," + inExamsArray[i].ToString();
+            authenticated += "," + authenticatedArray[i].ToString();         
+        }
+    }
+    
+}
+@Scripts.Render("~/Scripts/Chart.min.js")
+
+<div class="sessions-chart">
+    <canvas id="myChart" style="width:100%; height:450px;"></canvas>
+    <script type="text/javascript">
+        var labels = "@labels";
+        var labelsArray = labels.split(',');
+        var inExams = "@inExams";
+        var inExamsArray = inExams.split(',');
+        var authenticated = "@authenticated";
+        var authenticatedArray = authenticated.split(',');
+        
+    </script>
+</div>
+
+<section class="main-section">
+    <!-- content goes here -->
+
+    <div class="row">
+        <div class="large-12 large-centered columns">
+           
+
+            @if (Model.Count() < 1)
+            {
+                <h3><a href="@Url.Action("Create", "Sessions")">There are no exam sessions yet. Click to create one!</a></h3>
+            }
+            else
+            {
+                <h3>Recent Sessions</h3>
+                foreach (var session in Model)
+                {
+                    <div class="row collapse session-row">
+                        <a href="@Url.Action("Details", "Sessions", new { id = session.SessionId })">
+                            <div class="large-2 columns">
+                                <h4>
+                                    <small>Active</small><br>
+                                    <div class="switch round">
+                                        <input id="exampleCheckboxSwitch" type="checkbox" checked="checked">
+                                        <label for="exampleCheckboxSwitch"></label>
+                                    </div>
+                                </h4>
+
+                            </div>
+                            <div class="large-3 columns">
+                                <h4>
+                                    <small>@Html.DisplayNameFor(model => model.Campus)</small><br>
+                                    @Html.DisplayFor(modelItem => session.Campus)
+                                </h4>
+                            </div>
+                            <div class="large-2 columns">
+                                <h4>
+                                    <small>@Html.DisplayNameFor(model => model.Building)</small><br>
+                                    @Html.DisplayFor(modelItem => session.Building)
+                                </h4>
+                            </div>
+                            <div class="large-2 columns">
+                                <h4>
+                                    <small>@Html.DisplayNameFor(model => model.Room)</small><br>
+                                    @Html.DisplayFor(modelItem => session.Room)
+                                </h4>
+                            </div>
+                            <div class="large-2 columns">
+                                <h4>
+                                    <small>@Html.DisplayNameFor(model => model.SessionDate)</small><br>
+                                    @Html.DisplayFor(modelItem => session.SessionDate)
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                    <hr>
+                }
+            }
+            
+            <p><a href="@Url.Action("Create", "Sessions", null)" class="button right">Create Another Session</a></p>
+        </div>
+    </div>
+
+</section>
